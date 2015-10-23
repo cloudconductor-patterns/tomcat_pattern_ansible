@@ -1,15 +1,37 @@
 ---
 driver:
   name: docker
+#  cc_pattern: "<%= File.basename(Dir.pwd) %>"
+  cc_pattern: tomcat_pattern
 
 provisioner:
   name: ansible_playbook
+  playbook: ./site.yml
+  roles_path: ./roles
+  group_vars_path: ./group_vars
+  host_vars_path: ./host_vars
+  filter_plugins: ./filter_plugins
+  additional_copy_path: [./webservers.yml, ]
+  require_ansible_omnibus: true
+  require_ruby_for_busser: true
 
 platforms:
-  - name: ubuntu-14.04
-  - name: centos-7.1
+  - name: centos-7
+    driver_config:
+      image: centos:centos7
+      dockerfile: test/platforms/Dockerfile
+      privileged: true
+      run_command: /sbin/init; sleep 3
+  - name: centos-6
+    driver_config:
+      image: centos:centos6
+      dockerfile: test/platforms/Dockerfile
+
+verifier:
+  ruby_bindir: '/usr/bin'
 
 suites:
   - name: default
-    run_list:
     attributes:
+    provisioner:
+      hosts: webservers
