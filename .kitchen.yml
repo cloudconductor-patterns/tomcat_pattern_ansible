@@ -2,7 +2,7 @@
 driver:
   name: docker
 #  cc_pattern: "<%= File.basename(Dir.pwd) %>"
-  cc_pattern: tomcat_pattern
+  cc_pattern: tomcat_pattern_ansible
 
 provisioner:
   name: ansible_playbook
