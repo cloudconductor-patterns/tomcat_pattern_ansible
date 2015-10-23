@@ -83,13 +83,14 @@ RUN echo 'git checkout develop' >> ./bootstrap.sh
 RUN echo 'git pull' >> ./bootstrap.sh
 RUN echo 'export PATTERN_NAME="<%= @cc_pattern %>"' >> ./bootstrap.sh
 RUN echo 'bash -x ./bin/setup.sh' >> ./bootstrap.sh
+RUN bash -x ./bootstrap.sh
+RUN rm ./bootstrap.sh
 
 # follow prepare.sh from pattern
 WORKDIR /opt/cloudconductor
 RUN git clone https://github.com/cloudconductor-patterns/<%= @cc_pattern %>.git /opt/cloudconductor/patterns/<%= @cc_pattern %>
-RUN echo 'cd /opt/cloudconductor/patterns/<%= @cc_pattern %>' >> ./bootstrap.sh
+RUN echo 'cd /opt/cloudconductor/patterns/<%= @cc_pattern %>' > ./bootstrap.sh
 RUN echo 'git checkout develop' >> ./bootstrap.sh
 RUN echo 'git pull' >> ./bootstrap.sh
 RUN echo 'bash -x prepare.sh' >> ./bootstrap.sh
-
 RUN bash -x ./bootstrap.sh
