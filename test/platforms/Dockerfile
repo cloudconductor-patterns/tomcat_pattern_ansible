@@ -79,7 +79,10 @@ WORKDIR /opt/cloudconductor
 RUN yum install -y git
 RUN git clone https://github.com/cloudconductor/cloud_conductor_init.git /opt/cloudconductor
 RUN echo 'cd /opt/cloudconductor' > ./bootstrap.sh
-RUN echo 'git checkout develop' >> ./bootstrap.sh
+
+# RUN echo 'git checkout develop' >> ./bootstrap.sh
+RUN echo 'git checkout feature/support-centos-7' >> ./bootstrap.sh
+
 RUN echo 'git pull' >> ./bootstrap.sh
 RUN echo 'export PATTERN_NAME="<%= @cc_pattern %>"' >> ./bootstrap.sh
 RUN echo 'bash -x ./bin/setup.sh' >> ./bootstrap.sh
