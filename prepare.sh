@@ -34,7 +34,7 @@ install_ansible() {
   run which ansible
   if [ $status -ne 0 ]; then
     echo "install ansible."
-    yum install --enablerepo=epel ansible
+    yum install -y --enablerepo=epel ansible
     if [ $status -ne 0 ] ; then
       echo "$output" >&2
       return 1
