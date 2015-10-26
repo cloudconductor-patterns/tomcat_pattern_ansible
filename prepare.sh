@@ -30,6 +30,18 @@ run() {
 #   fi
 # }
 
+install_ansible() {
+  run which ansible
+  if [ $status -ne 0 ]; then
+    echo "install ansible."
+    yum install --enablerepo=epel ansible
+    if [ $status -ne 0 ] ; then
+      echo "$output" >&2
+      return 1
+    fi
+  fi
+}
+
 set_ruby_path() {
   run which ruby
   if [ $status -ne 0 ]; then
