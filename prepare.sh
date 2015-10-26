@@ -105,6 +105,7 @@ setup_python_env() {
 }
 
 # install_chef
+install_ansible
 # install_berkshelf
 install_serverspec
 
