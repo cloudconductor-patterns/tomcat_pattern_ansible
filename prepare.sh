@@ -30,6 +30,40 @@ run() {
 #   fi
 # }
 
+install_git() {
+  run which git
+  if [ $status -ne 0 ]; then
+    echo "install git."
+    yum install -y git
+    if [ $status -ne 0 ] ; then
+      echo "$output" >&2
+      return 1
+    fi
+  fi
+}
+
+install_ruby() {
+  run which ruby
+  if [ $status -ne 0 ]; then
+    echo "install ruby."
+
+    run which git
+    if [ $status -ne 0 ]; then
+      install_git
+    fi
+    yum install -y openssl-devel readline-devel zlib-devel tar
+    git clone https://github.com/sstephenson/rbenv.git /usr/local/rbenv
+    git clone https://github.com/sstephenson/ruby-build.git /usr/local/rbenv/plugins/ruby-build
+    echo 'export RBENV_ROOT="/usr/local/rbenv"' > /etc/profile.d/rbenv.sh
+    echo 'export PATH="${RBENV_ROOT}/bin:${PATH}"' >> /etc/profile.d/rbenv.sh
+    echo 'eval "$(rbenv init --no-rehash -)"' >> /etc/profile.d/rbenv.sh
+    source /etc/profile.d/rbenv.sh
+    rbenv install -v 2.2.3
+    rbenv rehash
+    rbenv global 2.2.3
+  fi
+}
+
 install_ansible() {
   run which ansible
   if [ $status -ne 0 ]; then
@@ -67,7 +101,11 @@ set_ruby_path() {
 # }
 
 install_serverspec() {
-  set_ruby_path
+  # set_ruby_path
+  run which ruby
+  if [ $status -ne 0 ]; then
+    install_ruby
+  fi
 
   run bash -c "gem list | grep serverspec"
   if [ $status -ne 0 ]; then
@@ -107,6 +145,7 @@ setup_python_env() {
 # install_chef
 install_ansible
 # install_berkshelf
+# install_ruby
 install_serverspec
 
 setup_python_env ./lib/python-packages.txt
