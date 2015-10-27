@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'json'
 
 describe 'web_deploy' do
   it 'apache service is running' do
