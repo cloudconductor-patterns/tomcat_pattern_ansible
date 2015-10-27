@@ -74,8 +74,10 @@
         [from, platform, base, custom, ssh_key, ''].join("\n")
 %>
 
-WORKDIR /opt/cloudconductor
 RUN yum install -y git
+
+RUN mkdir -p /tmp/kitchen-platform
+WORKDIR /tmp/kitchen-platform
 
 # follow cloud_conductor_init
 RUN git clone https://github.com/cloudconductor/cloud_conductor_init.git /opt/cloudconductor
@@ -91,7 +93,6 @@ RUN bash -x ./bootstrap.sh
 RUN rm ./bootstrap.sh
 
 # follow prepare.sh from pattern
-WORKDIR /opt/cloudconductor
 RUN git clone https://github.com/cloudconductor-patterns/<%= @cc_pattern %>.git /opt/cloudconductor/patterns/<%= @cc_pattern %>
 RUN echo 'cd /opt/cloudconductor/patterns/<%= @cc_pattern %>' > ./bootstrap.sh
 
