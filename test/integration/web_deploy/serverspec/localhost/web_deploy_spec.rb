@@ -22,7 +22,7 @@ describe 'web_deploy' do
 
   it 'loadbalancer config is found into apache configuration file' do
     %w('application').each do |name|
-      expect(file("/etc/httpd/conf/uriworkermap.properties"))
+      expect(file('/etc/httpd/conf/uriworkermap.properties'))
         .to contain("/#{name}=loadbalancer")
         .and contain("/#{name}/*=loadbalancer")
     end

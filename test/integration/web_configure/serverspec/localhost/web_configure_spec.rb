@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'json'
 
 describe 'web_configure' do
-
   it 'is apache service is running ' do
     expect(service('httpd')).to be_running
   end
