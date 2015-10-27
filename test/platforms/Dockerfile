@@ -74,9 +74,10 @@
         [from, platform, base, custom, ssh_key, ''].join("\n")
 %>
 
-# follow cloud_conductor_init
 WORKDIR /opt/cloudconductor
 RUN yum install -y git
+
+# follow cloud_conductor_init
 RUN git clone https://github.com/cloudconductor/cloud_conductor_init.git /opt/cloudconductor
 RUN echo 'cd /opt/cloudconductor' > ./bootstrap.sh
 
