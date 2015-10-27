@@ -13,22 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# if [ "${CHEF_ENV_FILE}" == "" ]; then
-#   CHEF_ENV_FILE="/etc/profile.d/chef.sh"
-# fi
-
 run() {
   output="$("$@" 2>&1)"
   status="$?"
 }
-
-# install_chef() {
-#   run which chef-solo
-#   if [ $status -ne 0 ]; then
-#     echo "install chef."
-#     curl -L http://www.opscode.com/chef/install.sh | bash
-#   fi
-# }
 
 install_git() {
   run which git
@@ -90,18 +78,7 @@ set_ruby_path() {
   fi
 }
 
-# install_berkshelf() {
-#   set_ruby_path
-#
-#   run bash -c "gem list | grep berkshelf"
-#   if [ $status -ne 0 ]; then
-#     yum install -y make gcc gcc-c++ autoconf
-#     gem install berkshelf
-#   fi
-# }
-
 install_serverspec() {
-  # set_ruby_path
   run which ruby
   if [ $status -ne 0 ]; then
     install_ruby
@@ -142,10 +119,7 @@ setup_python_env() {
   fi
 }
 
-# install_chef
 install_ansible
-# install_berkshelf
-# install_ruby
 install_serverspec
 
 setup_python_env ./lib/python-packages.txt
