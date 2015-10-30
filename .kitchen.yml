@@ -31,7 +31,24 @@ verifier:
   ruby_bindir: '/usr/bin'
 
 suites:
-  - name: default
+  - name: web_default
     attributes:
+      extra_vars:
+        ap_server_ip: '192.168.0.2'
+        db_server_ip: '192.168.0.3'
     provisioner:
       hosts: webservers
+  - name: ap_default
+    attributes:
+      extra_vars:
+        ap_server_ip: '192.168.0.2'
+        db_server_ip: '192.168.0.3'
+    provisioner:
+      hosts: apserver
+  - name: db_default
+    attributes:
+      extra_vars:
+        ap_server_ip: '192.168.0.2'
+        db_server_ip: '192.168.0.3'
+    provisioner:
+      hosts: dbserver
