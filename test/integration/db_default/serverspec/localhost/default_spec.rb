@@ -20,6 +20,10 @@ describe 'db_default' do
     expect(package('python-psycopg2')).to be_installed
   end
 
+  it 'is postgresql service enabled and running' do
+    expect(service('postgresql-9.4')).to be_enabled.and be_running
+  end
+
   it 'is initialized postgresql db and created db user' do
     expect(command("sudo -u postgres psql -U postgres -d postgres -c '\\l'").exit_status).to eq(0)
   end
