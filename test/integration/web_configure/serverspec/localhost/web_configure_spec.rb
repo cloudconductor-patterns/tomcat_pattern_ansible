@@ -11,12 +11,10 @@ describe 'web_configure' do
     end
   end
 
-  it 'is workers.properties file set given mode, owned by a given user, grouped in to a given group, and exist'do
-    expect(file('/etc/httpd/conf/workers.properties'))
+  it 'is workers.properties file set mode and exist'do
+    expect(file('/etc/httpd/conf.d/workers.properties'))
       .to be_file
-      .and be_mode(664)
-      .and be_owned_by('apache')
-      .and be_grouped_into('apache')
+      .and be_mode(644)
   end
 
   it 'is mod-jk.conf file exist' do
