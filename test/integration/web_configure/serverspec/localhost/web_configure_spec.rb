@@ -19,13 +19,5 @@ describe 'web_configure' do
       .and be_grouped_into('apache')
   end
 
-  it 'is workers.properties file contains the all ap server settings' do
-    %w('ap_server').each do |hostname, server|
-      expect(file('/etc/httpd/conf/workers.properties'))
-        .to contain("worker.#{hostname}.reference=worker.template")
-        .and contain("worker.#{hostname}.host=#{server['private_ip']}")
-        .and contain("worker.#{hostname}.route=#{server['route']}")
-        .and contain("worker.#{hostname}.lbfactor=#{server['weight']}")
-    end
   end
 end
