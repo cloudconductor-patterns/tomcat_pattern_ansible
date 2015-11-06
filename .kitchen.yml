@@ -37,7 +37,7 @@ suites:
         ap_server_ip: '192.168.0.2'
         db_server_ip: '192.168.0.3'
     provisioner:
-      hosts: webservers
+      hosts: webserver
   - name: ap_default
     attributes:
       extra_vars:
