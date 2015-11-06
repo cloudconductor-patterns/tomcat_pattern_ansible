@@ -31,7 +31,7 @@ verifier:
   ruby_bindir: '/usr/bin'
 
 suites:
-  - name: web_default
+  - name: web_setup
     attributes:
       extra_vars:
         ap_server_ip: '192.168.0.2'
