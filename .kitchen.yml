@@ -61,7 +61,7 @@ suites:
 #        - deploy
     provisioner:
       hosts: webserver
-  - name: ap_default
+  - name: ap_setup
     attributes:
       extra_vars:
         ap_server_ip: '192.168.0.2'
