@@ -18,10 +18,6 @@ describe 'web_setup' do
     # node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   end
 
-  it 'is exist a workers.properties file' do
-    expect(file('/etc/httpd/conf/workers.properties')).to be_file
-  end
-
   it 'is exist a uriworkermap.properties file' do
     expect(file('/etc/httpd/conf//uriworkermap.properties')).to be_file
   end
