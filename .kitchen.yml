@@ -40,6 +40,27 @@ suites:
         - setup
     provisioner:
       hosts: webserver
+  - name: web_configure
+    attributes:
+      extra_vars:
+        ap_server_ip: '192.168.0.2'
+        db_server_ip: '192.168.0.3'
+      tags:
+        - setup
+        - configure
+    provisioner:
+      hosts: webserver
+  - name: web_deploy
+    attributes:
+      extra_vars:
+        ap_server_ip: '192.168.0.2'
+        db_server_ip: '192.168.0.3'
+      tags:
+        - setup
+        - configure
+#        - deploy
+    provisioner:
+      hosts: webserver
   - name: ap_default
     attributes:
       extra_vars:
