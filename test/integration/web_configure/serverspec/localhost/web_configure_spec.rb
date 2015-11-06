@@ -19,5 +19,8 @@ describe 'web_configure' do
       .and be_grouped_into('apache')
   end
 
+  it 'is mod-jk.conf file exist' do
+    expect(file('/etc/httpd/conf.d/httpd-jk.conf'))
+      .to be_file
   end
 end

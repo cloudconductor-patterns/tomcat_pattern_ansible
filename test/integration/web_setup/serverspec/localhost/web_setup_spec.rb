@@ -17,13 +17,4 @@ describe 'web_setup' do
     expect(file('/usr/lib64/httpd/modules/mod_jk.so')).to be_file
     # node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   end
-  it 'is mod-jk.conf file set given mode, owned by a given user, grouped in to a given group, and exist' do
-    expect(file('/etc/httpd/conf-available/mod-jk.conf'))
-      .to be_file.and be_mode(664).and be_owned_by('apache').and be_grouped_into('apache')
-  end
-
-  it 'is conf-enabled/mod-jk.conf are linked to conf-available/mod-jk.conf' do
-    expect(file('/etc/httpd/conf-enabled/mod-jk.conf'))
-      .to be_linked_to '/etc/httpd/conf-available/mod-jk.conf'
-  end
 end
