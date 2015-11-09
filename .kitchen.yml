@@ -66,6 +66,8 @@ suites:
       extra_vars:
         ap_server_ip: '192.168.0.2'
         db_server_ip: '192.168.0.3'
+      tags:
+        - setup
     provisioner:
       hosts: apserver
   - name: db_default
