@@ -100,3 +100,24 @@ suites:
         - setup
     provisioner:
       hosts: dbserver
+  - name: db_configure
+    attributes:
+      extra_vars:
+        ap_server_ip: '192.168.0.2'
+        db_server_ip: '192.168.0.3'
+      tags:
+        - setup
+        - configure
+    provisioner:
+      hosts: dbserver
+  - name: db_deploy
+    attributes:
+      extra_vars:
+        ap_server_ip: '192.168.0.2'
+        db_server_ip: '192.168.0.3'
+      tags:
+        - setup
+        - configure
+        - deploy
+    provisioner:
+      hosts: dbserver
