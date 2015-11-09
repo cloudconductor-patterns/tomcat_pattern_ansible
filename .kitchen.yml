@@ -70,6 +70,27 @@ suites:
         - setup
     provisioner:
       hosts: apserver
+  - name: ap_configure
+    attributes:
+      extra_vars:
+        ap_server_ip: '192.168.0.2'
+        db_server_ip: '192.168.0.3'
+      tags:
+        - setup
+        - configure
+    provisioner:
+      hosts: apserver
+  - name: ap_deploy
+    attributes:
+      extra_vars:
+        ap_server_ip: '192.168.0.2'
+        db_server_ip: '192.168.0.3'
+      tags:
+        - setup
+        - configure
+        - deploy
+    provisioner:
+      hosts: apserver
   - name: db_default
     attributes:
       extra_vars:
