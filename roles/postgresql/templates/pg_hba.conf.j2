@@ -1,0 +1,9 @@
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+# Remote application connection
+host    all             all            {{ ap_server_ip }}/32    md5
+
+local   all             postgres                                ident
+local   all             all                                     md5
+host    all             all             127.0.0.1/32            md5
+host    all             all             ::1/128                 md5
+host    all             postgres        0.0.0.0/0               reject

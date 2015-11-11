@@ -1,0 +1,53 @@
+---
+- name: install yum-priorities
+  yum: name=yum-priorities state=latest
+  tags: setup
+
+- name: install jpackage-release-6-3.jpp6.noarch.rpm
+  yum: name=http://mirror.ibcp.fr/pub/jpackage/6.0/generic/free/RPMS/jpackage-release-6-3.jpp6.noarch.rpm
+  tags: setup
+
+- name: change gpgcheck
+  replace:
+    dest: /etc/yum.repos.d/jpackage.repo
+    regexp: 'gpgcheck=1'
+    replace: 'gpgcheck=0'
+  tags: setup
+
+- name: install jdk
+  yum: name={{ item }} state=latest
+  with_items:
+    - java-{{ java_version }}-openjdk
+    - java-{{ java_version }}-openjdk-devel
+  tags: setup
+
+- name: tomcat install
+  yum: name=tomcat{{ tomcat_version }} state=latest
+  tags: setup
+
+- name: chown tomcat directory
+  file: path=/usr/share/tomcat{{ tomcat_version }} owner=tomcat
+  tags: setup
+
+- name: get postgresql jdbc driver
+  get_url: url="{{ jdbc_driver_url }}" dest=/usr/share/tomcat{{ tomcat_version }}/lib/
+  tags: setup
+
+- name: tomcat start
+  service: name=tomcat{{ tomcat_version }} state=started enabled=yes
+  tags: setup
+
+- name: application deploy
+  get_url: url="{{ war_application_url }}" dest=/var/lib/tomcat{{ tomcat_version }}/webapps/
+  tags: deploy
+
+- name: copy jpetstore.xml
+  template: src=../templates/jpetstore.xml.j2 dest=/etc/tomcat{{ tomcat_version }}/Catalina/localhost/jpetstore.xml
+  notify: restart tomcat
+  tags: deploy
+
+- name: chown jpetstore.xml
+  file: path=/etc/tomcat{{ tomcat_version }}/Catalina/localhost/jpetstore.xml owner=tomcat
+  tags: deploy
+  notify:
+    - restart tomcat

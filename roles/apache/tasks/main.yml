@@ -1,0 +1,71 @@
+---
+- name: install apache
+  yum: name=httpd state=latest
+  tags: setup
+
+- name: replace listen port
+  replace:
+    dest: /etc/httpd/conf/httpd.conf
+    regexp: "Listen 80"
+    replace: "Listen 0.0.0.0:80"
+  tags: setup
+
+- name: start httpd
+  service: name=httpd state=started enabled=yes
+  tags: setup
+
+- name: install httpd-devel gcc
+  yum: name={{ item }} state=latest
+  with_items:
+    - httpd-devel
+    - gcc
+  tags: setup
+
+- name: download tomcat-connectors
+  get_url: url="{{ tomcat_connectors_url }}" dest=./
+  tags: setup
+
+- name: tar tomcat-connectors
+  command: tar -zxvf tomcat-connectors-1.2.40-src.tar.gz
+  tags: setup
+
+- name: configure tomcat-connectors
+  command: ./configure --with-apxs=/usr/bin/apxs chdir=tomcat-connectors-1.2.40-src/native
+  when: ansible_distribution == "CentOS" and
+        ansible_distribution_major_version == "7"
+  tags: setup
+
+- name: configure tomcat-connectors
+  command: ./configure --with-apxs=/usr/sbin/apxs chdir=tomcat-connectors-1.2.40-src/native
+  when: ansible_distribution == "CentOS" and
+        ansible_distribution_major_version == "6"
+  tags: setup
+
+- name: make tomcat-connectors
+  command: make chdir=tomcat-connectors-1.2.40-src/native
+  tags: setup
+
+- name: make install tomcat-connectors
+  command: make install chdir=tomcat-connectors-1.2.40-src/native
+  tags: setup
+
+- name: copy mod_jk.so from apache-2.0/ to /etc/httpd/modules/
+  command: cp apache-2.0/mod_jk.so /etc/httpd/modules/ chdir=tomcat-connectors-1.2.40-src/native
+  tags: setup
+  notify:
+    - reload apache
+
+- name: create workers.properties
+  template: src=../templates/workers.properties.j2 dest=/etc/httpd/conf.d/workers.properties
+  tags: configure
+  notify:
+    - restart apache
+
+- name: create httpd-jk.conf
+  template: src=../templates/httpd-jk.conf.j2 dest=/etc/httpd/conf.d/httpd-jk.conf
+  tags: configure
+  notify:
+    - restart apache
+
+# - name: restart apache
+#   service: name=httpd state=restarted

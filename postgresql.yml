@@ -1,0 +1,5 @@
+---
+- hosts: dbserver
+  sudo: yes
+  roles:
+    - postgresql
