@@ -1,5 +1,6 @@
 ---
-- hosts: apserver
+- hosts: all
   sudo: yes
   roles:
     - tomcat
+  tags: ap

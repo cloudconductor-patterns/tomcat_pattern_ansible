@@ -18,6 +18,7 @@ provisioner:
     - ./tomcat.yml
   require_ansible_omnibus: true
   require_ruby_for_busser: true
+  hosts: all
 
 platforms:
   - name: centos-7
@@ -41,87 +42,78 @@ suites:
         ap_server_ip: '192.168.0.2'
         db_server_ip: '192.168.0.3'
       tags:
+        - web
         - setup
-    provisioner:
-      hosts: webserver
   - name: web_configure
     attributes:
       extra_vars:
         ap_server_ip: '192.168.0.2'
         db_server_ip: '192.168.0.3'
       tags:
+        - web
         - setup
         - configure
-    provisioner:
-      hosts: webserver
   - name: web_deploy
     attributes:
       extra_vars:
         ap_server_ip: '192.168.0.2'
         db_server_ip: '192.168.0.3'
       tags:
+        - web
         - setup
         - configure
-#        - deploy
-    provisioner:
-      hosts: webserver
+        - deploy
   - name: ap_setup
     attributes:
       extra_vars:
         ap_server_ip: '192.168.0.2'
         db_server_ip: '192.168.0.3'
       tags:
+        - ap
         - setup
-    provisioner:
-      hosts: apserver
   - name: ap_configure
     attributes:
       extra_vars:
         ap_server_ip: '192.168.0.2'
         db_server_ip: '192.168.0.3'
       tags:
+        - ap
         - setup
         - configure
-    provisioner:
-      hosts: apserver
   - name: ap_deploy
     attributes:
       extra_vars:
         ap_server_ip: '192.168.0.2'
         db_server_ip: '192.168.0.3'
       tags:
+        - ap
         - setup
         - configure
         - deploy
-    provisioner:
-      hosts: apserver
   - name: db_setup
     attributes:
       extra_vars:
         ap_server_ip: '192.168.0.2'
         db_server_ip: '192.168.0.3'
       tags:
+        - db
         - setup
-    provisioner:
-      hosts: dbserver
   - name: db_configure
     attributes:
       extra_vars:
         ap_server_ip: '192.168.0.2'
         db_server_ip: '192.168.0.3'
       tags:
+        - db
         - setup
         - configure
-    provisioner:
-      hosts: dbserver
   - name: db_deploy
     attributes:
       extra_vars:
         ap_server_ip: '192.168.0.2'
         db_server_ip: '192.168.0.3'
       tags:
+        - db
         - setup
         - configure
         - deploy
-    provisioner:
-      hosts: dbserver
