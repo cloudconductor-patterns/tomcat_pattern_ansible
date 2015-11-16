@@ -12,4 +12,4 @@ conflicts: []
 
 supports:
   - os: "centos"
-    version: "= 7
+    version: "= 7"
