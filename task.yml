@@ -19,7 +19,7 @@ events:
     task: setup
 
   configure:
-    description: Execute configure chef
+    description: Execute configure
     priority: 50
     ordered_tasks:
       - service: postgresql
@@ -57,20 +57,18 @@ events:
 
 tasks:
   setup:
-    description: Execute setup chef
+    description: Execute setup
     operations:
       - execute:
           file: prepare.sh
-      - chef:
-          run_list:
-            - role[{{role}}_setup]
+      - execute:
+          script: ansible-playbook -i hosts site.yml --tags "setup,{{role}}"
 
   configure:
-    description: Execute configure chef
+    description: Execute configure
     operations:
-      - chef:
-          run_list:
-            - role[{{role}}_configure]
+      - execute:
+          script: ansible-playbook -i hosts site.yml --tags "configure,{{role}}"
 
   spec:
     description: Execute serverspec
@@ -79,11 +77,10 @@ tasks:
           script: python lib/serverspec.py {{role}}
 
   deploy:
-    description: Execute deploy chef
+    description: Execute deploy
     operations:
-      - chef:
-          run_list:
-            - role[{{role}}_deploy]
+      - execute:
+          script: ansible-playbook -i hosts site.yml --tags "deploy,{{role}}"
 
   backup:
     description: Backup database
