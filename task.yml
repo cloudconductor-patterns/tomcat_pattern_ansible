@@ -22,9 +22,9 @@ events:
     description: Execute configure
     priority: 50
     ordered_tasks:
-      - service: postgresql
+      - service: postgresql-9.4
         task: configure
-      - service: tomcat
+      - service: tomcat7
         task: configure
       - service: httpd
         task: configure
@@ -41,18 +41,18 @@ events:
     description: Execute backup
     priority: 20
     ordered_tasks:
-      - service: postgresql
+      - service: postgresql-9.4
         task: backup
 
   restore:
     description: Execute restore
     priority: 80
     ordered_tasks:
-      - service: tomcat
+      - service: tomcat7
         task: restart_tomcat
-      - service: postgresql
+      - service: postgresql-9.4
         task: restore_database
-      - service: postgresql
+      - service: postgresql-9.4
         task: configure
 
 tasks:
