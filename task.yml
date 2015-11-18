@@ -1,6 +1,6 @@
 environments:
   HOME: /root
-  PATH: PATH: $PATH:/usr/bin
+  PATH: $PATH:/usr/bin
   ROLE: '{{config.role}}'
   CONSUL_SECRET_KEY: '{{config.token}}'
 
