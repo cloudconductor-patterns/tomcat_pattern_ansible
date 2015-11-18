@@ -39,16 +39,12 @@ suites:
   - name: web_setup
     attributes:
       extra_vars:
-        ap_server_ip: '192.168.0.2'
-        db_server_ip: '192.168.0.3'
       tags:
         - web
         - setup
   - name: web_configure
     attributes:
       extra_vars:
-        ap_server_ip: '192.168.0.2'
-        db_server_ip: '192.168.0.3'
       tags:
         - web
         - setup
@@ -56,8 +52,6 @@ suites:
   - name: web_deploy
     attributes:
       extra_vars:
-        ap_server_ip: '192.168.0.2'
-        db_server_ip: '192.168.0.3'
       tags:
         - web
         - setup
@@ -66,16 +60,12 @@ suites:
   - name: ap_setup
     attributes:
       extra_vars:
-        ap_server_ip: '192.168.0.2'
-        db_server_ip: '192.168.0.3'
       tags:
         - ap
         - setup
   - name: ap_configure
     attributes:
       extra_vars:
-        ap_server_ip: '192.168.0.2'
-        db_server_ip: '192.168.0.3'
       tags:
         - ap
         - setup
@@ -83,8 +73,6 @@ suites:
   - name: ap_deploy
     attributes:
       extra_vars:
-        ap_server_ip: '192.168.0.2'
-        db_server_ip: '192.168.0.3'
       tags:
         - ap
         - setup
@@ -93,16 +81,12 @@ suites:
   - name: db_setup
     attributes:
       extra_vars:
-        ap_server_ip: '192.168.0.2'
-        db_server_ip: '192.168.0.3'
       tags:
         - db
         - setup
   - name: db_configure
     attributes:
       extra_vars:
-        ap_server_ip: '192.168.0.2'
-        db_server_ip: '192.168.0.3'
       tags:
         - db
         - setup
@@ -110,8 +94,6 @@ suites:
   - name: db_deploy
     attributes:
       extra_vars:
-        ap_server_ip: '192.168.0.2'
-        db_server_ip: '192.168.0.3'
       tags:
         - db
         - setup
