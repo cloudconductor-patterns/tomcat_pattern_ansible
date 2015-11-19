@@ -1,6 +1,6 @@
 {
   "service": {
-    "name": "tomcat",
+    "name": "tomcat7",
     "port": 8080
   }
 }

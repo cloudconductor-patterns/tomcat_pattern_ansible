@@ -1,6 +1,6 @@
 {
   "service": {
-    "name": "postgresql",
+    "name": "postgresql-9.4",
     "port": 5432
   }
 }
