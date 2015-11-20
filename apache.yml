@@ -1,6 +1,5 @@
 ---
-- hosts: all
+- hosts: web_server
   sudo: yes
   roles:
     - apache
-  tags: web

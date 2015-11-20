@@ -1,6 +1,5 @@
 ---
-- hosts: all
+- hosts: db_server
   sudo: yes
   roles:
     - postgresql
-  tags: db

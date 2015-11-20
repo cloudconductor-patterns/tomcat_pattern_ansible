@@ -40,62 +40,71 @@ suites:
     attributes:
       extra_vars:
       tags:
-        - web
         - setup
+    provisioner:
+      hosts: web_server
   - name: web_configure
     attributes:
       extra_vars:
       tags:
-        - web
         - setup
         - configure
+    provisioner:
+      hosts: web_server
   - name: web_deploy
     attributes:
       extra_vars:
       tags:
-        - web
         - setup
         - configure
         - deploy
+    provisioner:
+      hosts: web_server
   - name: ap_setup
     attributes:
       extra_vars:
       tags:
-        - ap
         - setup
+    provisioner:
+      hosts: ap_server
   - name: ap_configure
     attributes:
       extra_vars:
       tags:
-        - ap
         - setup
         - configure
+    provisioner:
+      hosts: ap_server
   - name: ap_deploy
     attributes:
       extra_vars:
       tags:
-        - ap
         - setup
         - configure
         - deploy
+    provisioner:
+      hosts: ap_server
   - name: db_setup
     attributes:
       extra_vars:
       tags:
-        - db
         - setup
+    provisioner:
+      hosts: db_server
   - name: db_configure
     attributes:
       extra_vars:
       tags:
-        - db
         - setup
         - configure
+    provisioner:
+      hosts: db_server
   - name: db_deploy
     attributes:
       extra_vars:
       tags:
-        - db
         - setup
         - configure
         - deploy
+    provisioner:
+      hosts: db_server

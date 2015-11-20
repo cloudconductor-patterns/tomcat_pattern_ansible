@@ -62,13 +62,15 @@ tasks:
       - execute:
           file: prepare.sh
       - execute:
-          script: ansible-playbook -i hosts site.yml --tags "setup,{{role}}"
+          script: echo -e "[{{role}}_server]\nlocalhost ansible_connection=local" > hosts
+      - execute:
+          script: ansible-playbook -i hosts site.yml --tags "setup"
 
   configure:
     description: Execute configure
     operations:
       - execute:
-          script: ansible-playbook -i hosts site.yml --tags "configure,{{role}}"
+          script: ansible-playbook -i hosts site.yml --tags "configure"
 
   spec:
     description: Execute serverspec
@@ -80,7 +82,7 @@ tasks:
     description: Execute deploy
     operations:
       - execute:
-          script: ansible-playbook -i hosts site.yml --tags "deploy,{{role}}"
+          script: ansible-playbook -i hosts site.yml --tags "deploy"
 
   backup:
     description: Backup database
