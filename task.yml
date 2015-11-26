@@ -60,7 +60,9 @@ tasks:
     description: Execute configure
     operations:
       - execute:
-          script: ansible-playbook -i hosts site.yml --tags "configure"
+          script: python lib/cloud_conductor_attributes.py > cc_attributes.json
+      - execute:
+          script: ansible-playbook -i hosts site.yml --tags "configure" --extra-vars "@cc_attributes.json"
 
   spec:
     description: Execute serverspec
@@ -72,7 +74,9 @@ tasks:
     description: Execute deploy
     operations:
       - execute:
-          script: ansible-playbook -i hosts site.yml --tags "deploy"
+          script: python lib/cloud_conductor_attributes.py > cc_attributes.json
+      - execute:
+          script: ansible-playbook -i hosts site.yml --tags "deploy" --extra-vars "@cc_attributes.json"
 
   backup:
     description: Backup dummy task
