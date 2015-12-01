@@ -19,6 +19,28 @@ provisioner:
   require_ansible_omnibus: true
   require_ruby_for_busser: true
   hosts: all
+  attributes:
+    extra_vars:
+      cc_attributes:
+        cloudconductor:
+          salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
+          backup_restore: {}
+          servers:
+            ip-10-0-0-1:
+              roles:
+                - web
+              private_ip: 127.0.0.1
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-2:
+              roles:
+                - ap
+              private_ip: 127.0.0.1
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-3:
+              roles:
+                - db
+              private_ip: 127.0.0.1
+              pattern: tomcat_pattern_ansible
 
 platforms:
   - name: centos-7
@@ -38,14 +60,12 @@ verifier:
 suites:
   - name: web_setup
     attributes:
-      extra_vars:
       tags:
         - setup
     provisioner:
       hosts: web_server
   - name: web_configure
     attributes:
-      extra_vars:
       tags:
         - setup
         - configure
@@ -53,7 +73,6 @@ suites:
       hosts: web_server
   - name: web_deploy
     attributes:
-      extra_vars:
       tags:
         - setup
         - configure
@@ -62,14 +81,12 @@ suites:
       hosts: web_server
   - name: ap_setup
     attributes:
-      extra_vars:
       tags:
         - setup
     provisioner:
       hosts: ap_server
   - name: ap_configure
     attributes:
-      extra_vars:
       tags:
         - setup
         - configure
@@ -77,7 +94,6 @@ suites:
       hosts: ap_server
   - name: ap_deploy
     attributes:
-      extra_vars:
       tags:
         - setup
         - configure
@@ -86,14 +102,12 @@ suites:
       hosts: ap_server
   - name: db_setup
     attributes:
-      extra_vars:
       tags:
         - setup
     provisioner:
       hosts: db_server
   - name: db_configure
     attributes:
-      extra_vars:
       tags:
         - setup
         - configure
@@ -101,7 +115,6 @@ suites:
       hosts: db_server
   - name: db_deploy
     attributes:
-      extra_vars:
       tags:
         - setup
         - configure
