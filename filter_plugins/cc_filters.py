@@ -1,5 +1,8 @@
 # Common filters
 def deep_get(cc_attributes, nested_keys):
+  if cc_attributes == None:
+    return None
+
   current_dict = cc_attributes
   for key in nested_keys.split('.'):
     if current_dict.has_key(key):
@@ -29,6 +32,9 @@ def first_server_ip(server):
   return server[server.keys()[0]]['private_ip']
 
 def first_ap_server_ip(cc_attributes):
+  if cc_attributes == None:
+    return None
+
   try:
     server = first_ap_server(cc_attributes)
     ret_ip = first_server_ip(server)
@@ -38,6 +44,9 @@ def first_ap_server_ip(cc_attributes):
   return ret_ip
 
 def first_db_server_ip(cc_attributes):
+  if cc_attributes == None:
+    return None
+
   try:
     server = first_db_server(cc_attributes)
     ret_ip = first_server_ip(server)
