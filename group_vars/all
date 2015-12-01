@@ -3,8 +3,8 @@ db_name: "{{ cc_attributes | deep_get('tomcat_pattern_ansible.database.db_name')
 db_user: "{{ cc_attributes | deep_get('tomcat_pattern_ansible.database.db_user') | default('user', true) }}"
 pass_salt: "{{ cc_attributes.salt | default('password') }}"
 db_pass: "{{ 'database' | password_hash('sha256', 'password') }}"
-db_server_ip: "{{ ansible_lo.ipv4.address }}"
-ap_server_ip: "{{ ansible_lo.ipv4.address }}"
+db_server_ip: "{{ cc_attributes | first_db_server_ip | default(ansible_lo.ipv4.address, true) }}"
+ap_server_ip: "{{ cc_attributes | first_ap_server_ip | default(ansible_lo.ipv4.address, true) }}"
 web_server_ip: "{{ ansible_lo.ipv4.address }}"
 tomcat_version: 7
 java_version: 1.7.0
