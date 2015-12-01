@@ -1,7 +1,8 @@
 cc_attributes:
-db_name: application
-db_user: user
-db_pass: pass
+db_name: "{{ cc_attributes | deep_get('tomcat_pattern_ansible.database.db_name') | default('application', true) }}"
+db_user: "{{ cc_attributes | deep_get('tomcat_pattern_ansible.database.db_user') | default('user', true) }}"
+pass_salt: "{{ cc_attributes.salt | default('password') }}"
+db_pass: "{{ 'database' | password_hash('sha256', 'password') }}"
 db_server_ip: "{{ ansible_lo.ipv4.address }}"
 ap_server_ip: "{{ ansible_lo.ipv4.address }}"
 web_server_ip: "{{ ansible_lo.ipv4.address }}"
