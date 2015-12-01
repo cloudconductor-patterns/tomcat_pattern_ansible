@@ -1,3 +1,4 @@
+cc_attributes:
 db_name: application
 db_user: user
 db_pass: pass
