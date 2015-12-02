@@ -1,14 +1,14 @@
-cc_attributes:
-db_name: "{{ cc_attributes | deep_get('tomcat_pattern_ansible.database.db_name') | default('application', true) }}"
-db_user: "{{ cc_attributes | deep_get('tomcat_pattern_ansible.database.db_user') | default('user', true) }}"
-pass_salt: "{{ cc_attributes.salt | default('password') }}"
+cloudconductor: # cloud conductor attribute variable, input from extra-vars
+db_name: "{{ cloudconductor | deep_get('tomcat_pattern_ansible.database.db_name') | default('application', true) }}"
+db_user: "{{ cloudconductor | deep_get('tomcat_pattern_ansible.database.db_user') | default('user', true) }}"
+pass_salt: "{{ cloudconductor.salt | default('password') }}"
 db_pass: "{{ 'database' | password_hash('sha256', 'password') }}"
-db_server_ip: "{{ cc_attributes | first_db_server_ip | default(ansible_lo.ipv4.address, true) }}"
-ap_server_ip: "{{ cc_attributes | first_ap_server_ip | default(ansible_lo.ipv4.address, true) }}"
+db_server_ip: "{{ cloudconductor | first_db_server_ip | default(ansible_lo.ipv4.address, true) }}"
+ap_server_ip: "{{ cloudconductor | first_ap_server_ip | default(ansible_lo.ipv4.address, true) }}"
 web_server_ip: "{{ ansible_lo.ipv4.address }}"
 tomcat_version: 7
 java_version: 1.7.0
-jdbc_driver_url: "{{ cc_attributes | deep_get('tomcat_pattern_ansible.jdbc_driver') | default('https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar', true) }}"
-tomcat_connectors_url: "{{ cc_attributes | deep_get('tomcat_pattern_ansible.tomcat_connectors') | default('http://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.40-src.tar.gz', true) }}"
+jdbc_driver_url: "{{ cloudconductor | deep_get('tomcat_pattern_ansible.jdbc_driver') | default('https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar', true) }}"
+tomcat_connectors_url: "{{ cloudconductor | deep_get('tomcat_pattern_ansible.tomcat_connectors') | default('http://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.40-src.tar.gz', true) }}"
 war_application_url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore.war
 sql_file_url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore_postgres.sql

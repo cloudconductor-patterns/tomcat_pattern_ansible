@@ -14,7 +14,7 @@ def deep_get(cc_attributes, nested_keys):
 
 # CloudConductor Attributes filters
 def fetch_role_servers(attrs, role):
-  servers = attrs['cloudconductor']['servers']
+  servers = attrs['servers']
   return dict((x,y) for x,y in filter(lambda x: x[1]['roles'].count(role) > 0, servers.items()))
 
 def first_server(cc_attributes, role):
