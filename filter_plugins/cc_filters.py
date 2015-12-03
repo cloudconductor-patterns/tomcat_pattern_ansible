@@ -55,6 +55,25 @@ def first_db_server_ip(cc_attributes):
 
   return ret_ip
 
+def applications_dict_to_array(applications_dict):
+  ary = []
+  for k,v in applications_dict.items():
+    dict = {'application_name': k}
+    dict.update(v)
+    ary.append(dict)
+
+  return ary
+
+def first_application(cc_attributes):
+  if cc_attributes == None:
+    return None
+
+  print cc_attributes
+  applications = cc_attributes['applications']
+  print applications
+  first_application_name = sorted(applications.keys())[0]
+  first_application_dict = {first_application_name: applications[first_application_name]}
+  return applications_dict_to_array(first_application_dict)[0]
 
 class FilterModule(object):
   ''' Ansible CloudConductor jinja2 filters '''
@@ -63,5 +82,6 @@ class FilterModule(object):
     return {
       'deep_get': deep_get,
       'first_ap_server_ip': first_ap_server_ip,
-      'first_db_server_ip': first_db_server_ip
+      'first_db_server_ip': first_db_server_ip,
+      'first_application': first_application
     }

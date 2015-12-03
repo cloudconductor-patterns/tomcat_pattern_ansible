@@ -40,6 +40,14 @@ provisioner:
               - db
             private_ip: 127.0.0.2
             pattern: tomcat_pattern_ansible
+        applications:
+          application_name:
+            protocol: http
+            url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore.war
+            parameters:
+              migration:
+                type: sql
+                url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore_postgres.sql
 
 platforms:
   - name: centos-7
