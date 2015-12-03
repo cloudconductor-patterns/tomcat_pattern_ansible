@@ -30,7 +30,7 @@
   tags: setup
 
 - name: get postgresql jdbc driver
-  get_url: url="{{ jdbc_driver_url }}" dest=/usr/share/tomcat{{ tomcat_version }}/lib/
+  get_url: url={{ jdbc_driver_url }} dest=/usr/share/tomcat{{ tomcat_version }}/lib/
   tags: setup
 
 - name: tomcat start
@@ -45,7 +45,7 @@
   tags: deploy
 
 - name: application deploy(http)
-  get_url: url="{{ war_application_url }}" dest=/var/lib/tomcat{{ tomcat_version }}/webapps/
+  get_url: url={{ war_application_url }} dest=/var/lib/tomcat{{ tomcat_version }}/webapps/
   when: deploy_protocol == 'http'
   tags: deploy
 
