@@ -37,8 +37,14 @@
   service: name=tomcat{{ tomcat_version }} state=started enabled=yes
   tags: setup
 
-- name: application deploy
+- name: application deploy(http)
   get_url: url="{{ war_application_url }}" dest=/var/lib/tomcat{{ tomcat_version }}/webapps/
+  when: deploy_protocol == 'http'
+  tags: deploy
+
+- name: application deploy(git)
+  git: repo={{ war_application_url }} dest=/var/lib/tomcat{{ tomcat_version }}/webapps/
+  when: deploy_protocol == 'git'
   tags: deploy
 
 - name: copy context.xml
