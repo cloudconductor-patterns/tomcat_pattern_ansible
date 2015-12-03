@@ -11,6 +11,7 @@ java_version: 1.7.0
 jdbc_driver_url: "{{ cloudconductor | deep_get('tomcat_pattern_ansible.jdbc_driver') | default('https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar', true) }}"
 tomcat_connectors_url: "{{ cloudconductor | deep_get('tomcat_pattern_ansible.tomcat_connectors') | default('http://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.40-src.tar.gz', true) }}"
 application: "{{ cloudconductor | first_application }}"
+application_name: "{{ application.application_name }}"
 deploy_protocol: "{{ application.protocol }}"
 war_application_url: "{{ application.url }}"
 sql_file_url: "{{ application.parameters.migration.url }}"

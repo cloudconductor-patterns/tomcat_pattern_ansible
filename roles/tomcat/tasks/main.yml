@@ -41,13 +41,7 @@
   get_url: url="{{ war_application_url }}" dest=/var/lib/tomcat{{ tomcat_version }}/webapps/
   tags: deploy
 
-- name: copy jpetstore.xml
-  template: src=../templates/jpetstore.xml.j2 dest=/etc/tomcat{{ tomcat_version }}/Catalina/localhost/jpetstore.xml
+- name: copy context.xml
+  template: src=../templates/context.xml.j2 dest=/etc/tomcat{{ tomcat_version }}/Catalina/localhost/{{ application_name }}.xml owner=tomcat
   notify: restart tomcat
   tags: deploy
-
-- name: chown jpetstore.xml
-  file: path=/etc/tomcat{{ tomcat_version }}/Catalina/localhost/jpetstore.xml owner=tomcat
-  tags: deploy
-  notify:
-    - restart tomcat
