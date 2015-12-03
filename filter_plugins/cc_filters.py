@@ -68,9 +68,7 @@ def first_application(cc_attributes):
   if cc_attributes == None:
     return None
 
-  print cc_attributes
   applications = cc_attributes['applications']
-  print applications
   first_application_name = sorted(applications.keys())[0]
   first_application_dict = {first_application_name: applications[first_application_name]}
   return applications_dict_to_array(first_application_dict)[0]
