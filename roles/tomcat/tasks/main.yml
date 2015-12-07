@@ -37,13 +37,6 @@
   service: name=tomcat{{ tomcat_version }} state=started enabled=yes
   tags: setup
 
-- name: execute pre deploy command
-  shell: "{{ pre_deploy_command }}"
-  args:
-    chdir: /var/lib/tomcat{{ tomcat_version }}/webapps/
-  when: pre_deploy_command is not None
-  tags: deploy
-
 - name: application deploy(http)
   get_url: url={{ war_application_url }} dest=/var/lib/tomcat{{ tomcat_version }}/webapps/
   when: deploy_protocol == 'http'
@@ -58,8 +51,3 @@
   template: src=../templates/context.xml.j2 dest=/etc/tomcat{{ tomcat_version }}/Catalina/localhost/{{ application_name }}.xml owner=tomcat
   notify: restart tomcat
   tags: deploy
-- name: execute post deploy command
-  shell: "{{ post_deploy_command }}"
-  args:
-    chdir: /var/lib/tomcat{{ tomcat_version }}/webapps/
-  when: post_deploy_command is not None
