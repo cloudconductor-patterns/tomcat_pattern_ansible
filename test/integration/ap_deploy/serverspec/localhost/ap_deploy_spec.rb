@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'ap_default' do
   it 'is created context xml' do
-    expect(file('/etc/tomcat7/Catalina/localhost/jpetstore.xml'))
+    expect(file('/etc/tomcat7/Catalina/localhost/application_name.xml'))
       .to be_file
       .and be_owned_by('tomcat')
   end
