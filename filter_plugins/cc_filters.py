@@ -65,7 +65,7 @@ def applications_dict_to_array(applications_dict):
   return ary
 
 def first_application(cc_attributes):
-  if cc_attributes == None:
+  if cc_attributes == None or not cc_attributes.has_key('applications'):
     return None
 
   applications = cc_attributes['applications']
