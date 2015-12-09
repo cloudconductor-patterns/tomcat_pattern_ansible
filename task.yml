@@ -8,7 +8,7 @@ variables:
   backup_directory: /var/cloudconductor/backups/postgresql
 
 default:
-  timeout: 1800
+  timeout: 3600
   chef:
     attribute_keys:
       - cloudconductor
