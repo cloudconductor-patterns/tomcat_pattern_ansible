@@ -19,35 +19,6 @@ provisioner:
   require_ansible_omnibus: true
   require_ruby_for_busser: true
   hosts: all
-  attributes:
-    extra_vars:
-      cloudconductor:
-        salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
-        backup_restore: {}
-        servers:
-          ip-10-0-0-1:
-            roles:
-              - web
-            private_ip: 127.0.0.2
-            pattern: tomcat_pattern_ansible
-          ip-10-0-0-2:
-            roles:
-              - ap
-            private_ip: 127.0.0.2
-            pattern: tomcat_pattern_ansible
-          ip-10-0-0-3:
-            roles:
-              - db
-            private_ip: 127.0.0.2
-            pattern: tomcat_pattern_ansible
-        applications:
-          application_name:
-            protocol: http
-            url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore.war
-            parameters:
-              migration:
-                type: sql
-                url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore_postgres.sql
 
 platforms:
   - name: centos-7
@@ -73,6 +44,26 @@ suites:
       hosts: web_server
   - name: web_configure
     attributes:
+      extra_vars:
+        cloudconductor:
+          salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
+          backup_restore: {}
+          servers:
+            ip-10-0-0-1:
+              roles:
+                - web
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-2:
+              roles:
+                - ap
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-3:
+              roles:
+                - db
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
       tags:
         - setup
         - configure
@@ -80,6 +71,34 @@ suites:
       hosts: web_server
   - name: web_deploy
     attributes:
+      extra_vars:
+        cloudconductor:
+          salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
+          backup_restore: {}
+          servers:
+            ip-10-0-0-1:
+              roles:
+                - web
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-2:
+              roles:
+                - ap
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-3:
+              roles:
+                - db
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+          applications:
+            application_name:
+              protocol: http
+              url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore.war
+              parameters:
+                migration:
+                  type: sql
+                  url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore_postgres.sql
       tags:
         - setup
         - configure
@@ -94,6 +113,27 @@ suites:
       hosts: ap_server
   - name: ap_configure
     attributes:
+    attributes:
+      extra_vars:
+        cloudconductor:
+          salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
+          backup_restore: {}
+          servers:
+            ip-10-0-0-1:
+              roles:
+                - web
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-2:
+              roles:
+                - ap
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-3:
+              roles:
+                - db
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
       tags:
         - setup
         - configure
@@ -101,6 +141,35 @@ suites:
       hosts: ap_server
   - name: ap_deploy
     attributes:
+    attributes:
+      extra_vars:
+        cloudconductor:
+          salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
+          backup_restore: {}
+          servers:
+            ip-10-0-0-1:
+              roles:
+                - web
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-2:
+              roles:
+                - ap
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-3:
+              roles:
+                - db
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+          applications:
+            application_name:
+              protocol: http
+              url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore.war
+              parameters:
+                migration:
+                  type: sql
+                  url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore_postgres.sql
       tags:
         - setup
         - configure
@@ -115,6 +184,26 @@ suites:
       hosts: db_server
   - name: db_configure
     attributes:
+      extra_vars:
+        cloudconductor:
+          salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
+          backup_restore: {}
+          servers:
+            ip-10-0-0-1:
+              roles:
+                - web
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-2:
+              roles:
+                - ap
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-3:
+              roles:
+                - db
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
       tags:
         - setup
         - configure
@@ -122,6 +211,34 @@ suites:
       hosts: db_server
   - name: db_deploy
     attributes:
+      extra_vars:
+        cloudconductor:
+          salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
+          backup_restore: {}
+          servers:
+            ip-10-0-0-1:
+              roles:
+                - web
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-2:
+              roles:
+                - ap
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+            ip-10-0-0-3:
+              roles:
+                - db
+              private_ip: 127.0.0.2
+              pattern: tomcat_pattern_ansible
+          applications:
+            application_name:
+              protocol: http
+              url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore.war
+              parameters:
+                migration:
+                  type: sql
+                  url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore_postgres.sql
       tags:
         - setup
         - configure
