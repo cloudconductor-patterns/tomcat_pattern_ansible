@@ -42,7 +42,7 @@
 - name: change pg_hba.conf setting
   # template: src=../templates/pg_hba.conf.j2 dest=/var/lib/pgsql/data/pg_hba.conf
   template: src=../templates/pg_hba.conf.j2 dest=/var/lib/pgsql/9.4/data/pg_hba.conf
-  notify: restart postgresql
+  notify: reload postgresql
   tags: configure
 
 - name: replace listen_addresses
@@ -84,12 +84,8 @@
 
 - name: make .pgpass
   sudo_user: "postgres"
-  template: src=../templates/.pgpass.j2 dest=~/.pgpass
-  tags: configure
-
-- name: chmod .pgpass
-  sudo_user: "postgres"
-  file: path=~/.pgpass mode=600
+  template: src=../templates/.pgpass.j2 dest=~/.pgpass mode=0600
+  notify: reload postgresql
   tags: configure
 
 - name: deploy database
