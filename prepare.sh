@@ -88,6 +88,10 @@ install_serverspec() {
   if [ $status -ne 0 ]; then
     gem install serverspec
   fi
+  run bash -c "gem list | grep activesupport"
+  if [ $status -ne 0 ]; then
+    gem install activesupport
+  fi
 }
 
 setup_python_env() {
