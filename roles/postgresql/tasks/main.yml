@@ -6,9 +6,6 @@
 - name: install postgresql
   yum: name={{ item }} state=latest
   with_items:
-#    - postgresql-server
-#    - postgresql-devel
-#   - postgresql-contrib
     - postgresql94-server
     - postgresql94-devel
     - postgresql94-contrib
@@ -19,13 +16,11 @@
   tags: setup
 
 - name: count file in the var/lib/pgsql/data directory
-#  command: ls /var/lib/pgsql/data
   command: ls /var/lib/pgsql/9.4/data
   register: file_count
   tags: setup
 
 - name: postgresql initdb (centOS7)
-#   command: service postgresql initdb
   command: /usr/pgsql-9.4/bin/postgresql94-setup initdb
   when: file_count.stdout_lines|length == 0 and
         ansible_distribution == "CentOS" and
@@ -40,22 +35,18 @@
   tags: setup
 
 - name: change pg_hba.conf setting
-  # template: src=../templates/pg_hba.conf.j2 dest=/var/lib/pgsql/data/pg_hba.conf
   template: src=../templates/pg_hba.conf.j2 dest=/var/lib/pgsql/9.4/data/pg_hba.conf
   notify: reload postgresql
   tags: configure
 
 - name: replace listen_addresses
   replace:
-#     dest: /var/lib/pgsql/data/postgresql.conf
     dest: /var/lib/pgsql/9.4/data/postgresql.conf
     regexp: "#listen_addresses = 'localhost'"
     replace: "listen_addresses = '*'"
   notify: restart postgresql
   tags: setup
 
-# - name: start postgresql
-#   service: name=postgresql state=started enabled=yes
 - name: start postgresql-9.4
   service: name=postgresql-9.4 state=started enabled=yes
   tags: setup
@@ -71,7 +62,6 @@
   tags: setup
 
 - name: get jpetstore_postgres.sql
-  # sudo_user: "postgres"
   get_url: url="{{ sql_file_url }}" dest=./jpetstore_postgres.sql
   tags: deploy
 

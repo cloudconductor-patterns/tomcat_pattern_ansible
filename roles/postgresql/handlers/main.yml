@@ -1,6 +1,5 @@
 ---
 - name: restart postgresql
-#   service: name=postgresql state=restarted
   service: name=postgresql-9.4 state=restarted
 
 - name: reload postgresql

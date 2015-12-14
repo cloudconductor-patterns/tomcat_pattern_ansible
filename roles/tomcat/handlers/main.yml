@@ -1,6 +1,5 @@
 ---
 - name: restart tomcat
-#   service: name=tomcat state=restarted
   service: name=tomcat{{ tomcat_version }} state=restarted
 
 - name: restart iptables
