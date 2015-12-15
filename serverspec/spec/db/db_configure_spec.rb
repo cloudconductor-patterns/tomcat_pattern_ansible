@@ -10,23 +10,22 @@ describe 'postgresql server' do
 
   params = property[:consul_parameters]
 
-
-  if params['postgresql_part'] && params['postgresql_part']['application'] && params['postgresql_part']['application']['database']
-    app_db = params['postgresql_part']['application']['database']
+  if params['tomcat_pattern_ansible'] && params['tomcat_pattern_ansible']['database'] && params['tomcat_pattern_ansible']['database']['db_name']
+    app_db = params['tomcat_pattern_ansible']['database']['db_name']
   else
     app_db = 'application'
   end
 
-  if params['postgresql_part'] && params['postgresql_part']['application'] && params['postgresql_part']['application']['user']
-    app_user = params['postgresql_part']['application']['user']
+  if params['tomcat_pattern_ansible'] && params['tomcat_pattern_ansible']['database'] && params['tomcat_pattern_ansible']['database']['db_user']
+    app_db = params['tomcat_pattern_ansible']['database']['db_user']
   else
-    app_user = 'postgres'
+    app_user = 'user'
   end
 
-  if params['postgresql_part'] && params['postgresql_part']['application'] && params['postgresql_part']['application']['password']
-    app_passwd = params['postgresql_part']['application']['password']
+  if params['salt']
+    app_passwd = OpenSSL::Digest::SHA256.hexdigest("#{params['salt']}password")
   else
-    app_passwd = 'todo_replace_random_password'
+    app_passwd = OpenSSL::Digest::SHA256.hexdigest('passwordpassword')
   end
 
   before(:all) do
