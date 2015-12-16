@@ -2,7 +2,7 @@ cloudconductor: # cloud conductor attribute variable, input from extra-vars
 db_name: "{{ cloudconductor | deep_get('tomcat_pattern_ansible.database.db_name') | default('application', true) }}"
 db_user: "{{ cloudconductor | deep_get('tomcat_pattern_ansible.database.db_user') | default('user', true) }}"
 pass_salt: "{{ cloudconductor.salt | default('password') }}"
-db_pass: "{{ 'database' | password_hash('sha256', 'password') }}"
+db_pass: "{{ pass_salt | password_hash('sha256', 'password') }}"
 db_server_ip: "{{ cloudconductor | first_db_server_ip | default(ansible_lo.ipv4.address, true) }}"
 ap_server_ip: "{{ cloudconductor | first_ap_server_ip | default(ansible_lo.ipv4.address, true) }}"
 web_server_ip: "{{ ansible_lo.ipv4.address }}"
