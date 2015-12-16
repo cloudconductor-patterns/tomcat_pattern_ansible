@@ -22,8 +22,8 @@ describe 'postgresql server' do
     app_user = 'user'
   end
 
-  if params[:salt]
-    app_passwd = OpenSSL::Digest::SHA256.hexdigest("#{params[:salt]}password")
+  if params[:cloudconductor][:salt]
+    app_passwd = OpenSSL::Digest::SHA256.hexdigest("#{params[:cloudconductor][:salt]}password")
   else
     app_passwd = OpenSSL::Digest::SHA256.hexdigest('passwordpassword')
   end
