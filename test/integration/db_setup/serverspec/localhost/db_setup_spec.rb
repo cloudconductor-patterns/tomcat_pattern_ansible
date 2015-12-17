@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe 'db_setup' do
-  db_user = 'user'
-  db_name = 'application'
-
   it 'is installed postgresql 9.4 server pakcage' do
     expect(package('postgresql94-server')).to be_installed
   end
@@ -33,5 +30,4 @@ describe 'db_setup' do
       .to be_file
       .and contain('listen_addresses = \'*\'')
   end
-
 end
