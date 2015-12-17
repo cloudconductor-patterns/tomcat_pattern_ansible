@@ -23,7 +23,7 @@ describe 'postgresql server' do
      params[:tomcat_pattern_ansible][:database] &&
      params[:tomcat_pattern_ansible][:database][:db_user]
 
-    app_db = params[:tomcat_pattern_ansible][:database][:db_user]
+    app_user = params[:tomcat_pattern_ansible][:database][:db_user]
   else
     app_user = 'user'
   end
