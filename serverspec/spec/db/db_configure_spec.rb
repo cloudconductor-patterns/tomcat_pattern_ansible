@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'unix_crypt'
 
 describe port(5432) do
   it { should be_listening.with('tcp') }
@@ -29,16 +30,16 @@ describe 'postgresql server' do
   end
 
   if params[:cloudconductor][:salt]
-    app_passwd = OpenSSL::Digest::SHA256.hexdigest("#{params[:cloudconductor][:salt]}password")
+    app_passwd = UnixCrypt::SHA256.build(params[:cloudconductor][:salt], 'password')
   else
-    app_passwd = OpenSSL::Digest::SHA256.hexdigest('passwordpassword')
+    app_passwd = UnixCrypt::SHA256.build('password', 'password')
   end
 
   before(:all) do
     Specinfra.backend.run_command(
       <<-EOS
-        echo #{hostname}:#{port}:#{app_db}:#{app_user}:#{app_passwd} >> ~/.pgpass
-        chmod 600 ~/.pgpass
+        echo '#{hostname}:#{port}:#{app_db}:#{app_user}:#{app_passwd}' > ~/.pgpass
+        chmod 0600 ~/.pgpass
       EOS
     )
   end
