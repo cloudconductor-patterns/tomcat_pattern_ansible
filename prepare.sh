@@ -92,6 +92,10 @@ install_serverspec() {
   if [ $status -ne 0 ]; then
     gem install activesupport
   fi
+  run bash -c "gem list | grep unix-crypt"
+  if [ $status -ne 0 ]; then
+    gem install unix-crypt
+  fi
 }
 
 setup_python_env() {
