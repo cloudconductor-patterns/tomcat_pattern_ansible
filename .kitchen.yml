@@ -46,7 +46,7 @@ suites:
     attributes:
       extra_vars:
         cloudconductor:
-          salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
+          salt: testsalt
           backup_restore: {}
           servers:
             ip-10-0-0-1:
@@ -73,7 +73,7 @@ suites:
     attributes:
       extra_vars:
         cloudconductor:
-          salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
+          salt: testsalt
           backup_restore: {}
           servers:
             ip-10-0-0-1:
@@ -116,7 +116,7 @@ suites:
     attributes:
       extra_vars:
         cloudconductor:
-          salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
+          salt: testsalt
           backup_restore: {}
           servers:
             ip-10-0-0-1:
@@ -144,7 +144,7 @@ suites:
     attributes:
       extra_vars:
         cloudconductor:
-          salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
+          salt: testsalt
           backup_restore: {}
           servers:
             ip-10-0-0-1:
@@ -186,7 +186,7 @@ suites:
     attributes:
       extra_vars:
         cloudconductor:
-          salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
+          salt: testsalt
           backup_restore: {}
           servers:
             ip-10-0-0-1:
@@ -213,7 +213,7 @@ suites:
     attributes:
       extra_vars:
         cloudconductor:
-          salt: 149dff8b837710999f6c79effc7655ab2891e8ab29e190cededadd7aa9dc8d0a
+          salt: testsalt
           backup_restore: {}
           servers:
             ip-10-0-0-1:
