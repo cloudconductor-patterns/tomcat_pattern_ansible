@@ -10,13 +10,19 @@ describe 'postgresql server' do
 
   params = property[:consul_parameters]
 
-  if params[:tomcat_pattern_ansible] && params[:tomcat_pattern_ansible][:database] && params[:tomcat_pattern_ansible][:database][:db_name]
+  if params[:tomcat_pattern_ansible] &&
+     params[:tomcat_pattern_ansible][:database] &&
+     params[:tomcat_pattern_ansible][:database][:db_name]
+
     app_db = params[:tomcat_pattern_ansible][:database][:db_name]
   else
     app_db = 'application'
   end
 
-  if params[:tomcat_pattern_ansible] && params[:tomcat_pattern_ansible][:database] && params[:tomcat_pattern_ansible][:database][:db_user]
+  if params[:tomcat_pattern_ansible] &&
+     params[:tomcat_pattern_ansible][:database] &&
+     params[:tomcat_pattern_ansible][:database][:db_user]
+
     app_db = params[:tomcat_pattern_ansible][:database][:db_user]
   else
     app_user = 'user'
