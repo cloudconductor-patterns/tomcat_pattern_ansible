@@ -9,12 +9,12 @@ describe 'db_configure' do
   end
 
   it 'is created pg_hba file' do
-    expect(file('/var/lib/pgsql/.pgpass'))
+    expect(file('/var/lib/pgsql/9.4/data/pg_hba.conf'))
       .to be_file
   end
 
   it 'is created .pgpass file' do
-    expect(file('/var/lib/pgsql/9.4/data/pg_hba.conf'))
+    expect(file('/var/lib/pgsql/.pgpass'))
       .to be_file
       .and be_mode(600)
   end
