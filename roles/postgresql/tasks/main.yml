@@ -59,7 +59,7 @@
     state: present
     login_user: postgres
     role_attr_flags: CREATEDB,LOGIN,SUPERUSER
-  tags: setup
+  tags: configure
 
 - name: get jpetstore_postgres.sql
   get_url: url="{{ sql_file_url }}" dest=./jpetstore_postgres.sql
