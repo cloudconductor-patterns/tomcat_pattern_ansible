@@ -6,16 +6,16 @@ driver:
 
 provisioner:
   name: ansible_playbook
-  playbook: ./site.yml
-  roles_path: ./roles
-  group_vars_path: ./group_vars
-  host_vars_path: ./host_vars
-  filter_plugins: ./filter_plugins
+  playbook: ./playbooks/site.yml
+  roles_path: ./playbooks/roles
+  group_vars_path: ./playbooks/group_vars
+  host_vars_path: ./playbooks/host_vars
+  filter_plugins_path: ./playbooks/filter_plugins
   additional_copy_path:
-    - ./apache.yml
-    - ./common.yml
-    - ./postgresql.yml
-    - ./tomcat.yml
+    - ./playbooks/apache.yml
+    - ./playbooks/common.yml
+    - ./playbooks/postgresql.yml
+    - ./playbooks/tomcat.yml
   require_ansible_omnibus: true
   require_ruby_for_busser: true
   hosts: all

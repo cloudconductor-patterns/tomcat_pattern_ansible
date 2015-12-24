@@ -54,7 +54,7 @@ tasks:
       - execute:
           script: echo -e "[{{role}}_server]\nlocalhost ansible_connection=local" > hosts
       - execute:
-          script: ansible-playbook -i hosts site.yml --tags "setup"
+          script: ansible-playbook -i hosts playbooks/site.yml --tags "setup"
 
   configure:
     description: Execute configure
@@ -62,7 +62,7 @@ tasks:
       - execute:
           script: python lib/cloud_conductor_attributes.py > cc_attributes.json
       - execute:
-          script: ansible-playbook -i hosts site.yml --tags "configure" --extra-vars "@cc_attributes.json"
+          script: ansible-playbook -i hosts playbooks/site.yml --tags "configure" --extra-vars "@cc_attributes.json"
 
   spec:
     description: Execute serverspec
@@ -76,7 +76,7 @@ tasks:
       - execute:
           script: python lib/cloud_conductor_attributes.py > cc_attributes.json
       - execute:
-          script: ansible-playbook -i hosts site.yml --tags "deploy" --extra-vars "@cc_attributes.json"
+          script: ansible-playbook -i hosts playbooks/site.yml --tags "deploy" --extra-vars "@cc_attributes.json"
 
   backup:
     description: Backup dummy task
