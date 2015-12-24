@@ -1,84 +1,9 @@
 ---
-- name: install pgdg-centos94-9.4-1.noarch.rpm
-  yum: name=http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-centos94-9.4-1.noarch.rpm state=present
+- include: setup.yml
   tags: setup
 
-- name: install postgresql
-  yum: name={{ item }} state=latest
-  with_items:
-    - postgresql94-server
-    - postgresql94-devel
-    - postgresql94-contrib
-  tags: setup
-
-- name: install python-psycopg2
-  yum: name=python-psycopg2 state=latest
-  tags: setup
-
-- name: count file in the var/lib/pgsql/data directory
-  command: ls /var/lib/pgsql/9.4/data
-  register: file_count
-  tags: setup
-
-- name: postgresql initdb (centOS7)
-  command: /usr/pgsql-9.4/bin/postgresql94-setup initdb
-  when: file_count.stdout_lines|length == 0 and
-        ansible_distribution == "CentOS" and
-        ansible_distribution_major_version == "7"
-  tags: setup
-
-- name: postgresql initdb (centOS6)
-  command: service postgresql-9.4 initdb
-  when: file_count.stdout_lines|length == 0 and
-        ansible_distribution == "CentOS" and
-        ansible_distribution_major_version == "6"
-  tags: setup
-
-- name: change pg_hba.conf setting
-  template: src=../templates/pg_hba.conf.j2 dest=/var/lib/pgsql/9.4/data/pg_hba.conf
-  notify: reload postgresql
+- include: configure.yml
   tags: configure
 
-- name: replace listen_addresses
-  replace:
-    dest: /var/lib/pgsql/9.4/data/postgresql.conf
-    regexp: "#listen_addresses = 'localhost'"
-    replace: "listen_addresses = '*'"
-  notify: restart postgresql
-  tags: setup
-
-- name: start postgresql-9.4
-  service: name=postgresql-9.4 state=started enabled=yes
-  tags: setup
-
-- name: create postgres user
-  sudo_user: postgres
-  postgresql_user:
-    name: "{{ db_user }}"
-    password: "{{ db_pass }}"
-    state: present
-    login_user: postgres
-    role_attr_flags: CREATEDB,LOGIN,SUPERUSER
-  tags: configure
-
-- name: get jpetstore_postgres.sql
-  get_url: url="{{ sql_file_url }}" dest=./jpetstore_postgres.sql
-  tags: deploy
-
-- name: create database
-  sudo_user: "postgres"
-  postgresql_db:
-    name: "{{ db_name }}"
-    owner: "{{ db_user }}"
-  tags: configure
-
-- name: make .pgpass
-  sudo_user: "postgres"
-  template: src=../templates/.pgpass.j2 dest=~/.pgpass mode=0600
-  notify: reload postgresql
-  tags: configure
-
-- name: deploy database
-  sudo_user: "postgres"
-  command: "psql -U {{ db_user }} -d {{ db_name }} -f jpetstore_postgres.sql"
+- include: deploy.yml
   tags: deploy

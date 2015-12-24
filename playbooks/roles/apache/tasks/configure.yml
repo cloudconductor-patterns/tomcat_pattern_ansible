@@ -1,0 +1,10 @@
+---
+- name: create workers.properties
+  template: src=../templates/workers.properties.j2 dest=/etc/httpd/conf.d/workers.properties
+  notify:
+    - restart apache
+
+- name: create httpd-jk.conf
+  template: src=../templates/httpd-jk.conf.j2 dest=/etc/httpd/conf.d/httpd-jk.conf
+  notify:
+    - restart apache
