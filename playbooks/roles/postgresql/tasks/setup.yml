@@ -1,0 +1,39 @@
+---
+- name: install pgdg-centos94-9.4-1.noarch.rpm
+  yum: name=http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-centos94-9.4-1.noarch.rpm state=present
+
+- name: install postgresql
+  yum: name={{ item }} state=latest
+  with_items:
+    - postgresql94-server
+    - postgresql94-devel
+    - postgresql94-contrib
+
+- name: install python-psycopg2
+  yum: name=python-psycopg2 state=latest
+
+- name: count file in the var/lib/pgsql/data directory
+  command: ls /var/lib/pgsql/9.4/data
+  register: file_count
+
+- name: postgresql initdb (centOS7)
+  command: /usr/pgsql-9.4/bin/postgresql94-setup initdb
+  when: file_count.stdout_lines|length == 0 and
+        ansible_distribution == "CentOS" and
+        ansible_distribution_major_version == "7"
+
+- name: postgresql initdb (centOS6)
+  command: service postgresql-9.4 initdb
+  when: file_count.stdout_lines|length == 0 and
+        ansible_distribution == "CentOS" and
+        ansible_distribution_major_version == "6"
+
+- name: replace listen_addresses
+  replace:
+    dest: /var/lib/pgsql/9.4/data/postgresql.conf
+    regexp: "#listen_addresses = 'localhost'"
+    replace: "listen_addresses = '*'"
+  notify: restart postgresql
+
+- name: start postgresql-9.4
+  service: name=postgresql-9.4 state=started enabled=yes

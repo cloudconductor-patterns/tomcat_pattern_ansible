@@ -1,0 +1,7 @@
+---
+- name: get jpetstore_postgres.sql
+  get_url: url="{{ sql_file_url }}" dest=./jpetstore_postgres.sql
+
+- name: deploy database
+  sudo_user: "postgres"
+  command: "psql -U {{ db_user }} -d {{ db_name }} -f jpetstore_postgres.sql"

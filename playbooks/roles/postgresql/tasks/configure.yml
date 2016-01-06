@@ -1,0 +1,27 @@
+---
+- name: change pg_hba.conf setting
+  template: src=../templates/pg_hba.conf.j2 dest=/var/lib/pgsql/9.4/data/pg_hba.conf
+  notify: reload postgresql
+
+- name: create postgres user
+  sudo_user: postgres
+  postgresql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_pass }}"
+    state: present
+    login_user: postgres
+    role_attr_flags: CREATEDB,LOGIN,SUPERUSER
+
+- name: create database
+  sudo_user: "postgres"
+  postgresql_db:
+    name: "{{ db_name }}"
+    owner: "{{ db_user }}"
+
+- name: make .pgpass
+  sudo_user: "postgres"
+  template: src=../templates/.pgpass.j2 dest=~/.pgpass mode=0600
+  notify: reload postgresql
+
+- name: reload postgresql
+  service: name=postgresql-9.4 state=reloaded

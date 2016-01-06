@@ -1,0 +1,12 @@
+---
+- name: application deploy(http)
+  get_url: url={{ war_application_url }} dest=/var/lib/tomcat{{ tomcat_version }}/webapps/
+  when: deploy_protocol == 'http'
+
+- name: application deploy(git)
+  git: repo={{ war_application_url }} dest=/var/lib/tomcat{{ tomcat_version }}/webapps/
+  when: deploy_protocol == 'git'
+
+- name: copy context.xml
+  template: src=../templates/context.xml.j2 dest=/etc/tomcat{{ tomcat_version }}/Catalina/localhost/{{ application_name }}.xml owner=tomcat
+  notify: restart tomcat

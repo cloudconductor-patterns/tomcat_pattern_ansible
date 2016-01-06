@@ -1,0 +1,30 @@
+---
+- name: install yum-priorities
+  yum: name=yum-priorities state=latest
+
+- name: install jpackage-release-6-3.jpp6.noarch.rpm
+  yum: name=http://mirror.ibcp.fr/pub/jpackage/6.0/generic/free/RPMS/jpackage-release-6-3.jpp6.noarch.rpm
+
+- name: change gpgcheck
+  replace:
+    dest: /etc/yum.repos.d/jpackage.repo
+    regexp: 'gpgcheck=1'
+    replace: 'gpgcheck=0'
+
+- name: install jdk
+  yum: name={{ item }} state=latest
+  with_items:
+    - java-{{ java_version }}-openjdk
+    - java-{{ java_version }}-openjdk-devel
+
+- name: tomcat install
+  yum: name=tomcat{{ tomcat_version }} state=latest
+
+- name: chown tomcat directory
+  file: path=/usr/share/tomcat{{ tomcat_version }} owner=tomcat
+
+- name: get postgresql jdbc driver
+  get_url: url={{ jdbc_driver_url }} dest=/usr/share/tomcat{{ tomcat_version }}/lib/
+
+- name: tomcat start
+  service: name=tomcat{{ tomcat_version }} state=started enabled=yes

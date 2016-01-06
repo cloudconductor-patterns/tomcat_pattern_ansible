@@ -1,0 +1,7 @@
+LoadModule jk_module modules/mod_jk.so
+<IfModule jk_module>
+  JkWorkersFile conf.d/workers.properties
+  JkLogFile logs/mod_jk.log
+  JkLogLevel info
+  JkMount /* worker1
+</IfModule>

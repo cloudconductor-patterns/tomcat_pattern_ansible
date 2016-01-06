@@ -1,0 +1,91 @@
+environments:
+  HOME: /root
+  PATH: $PATH:/usr/bin:/usr/local/rbenv/shims
+  ROLE: '{{config.role}}'
+  CONSUL_SECRET_KEY: '{{config.token}}'
+
+variables:
+  backup_directory: /var/cloudconductor/backups/postgresql
+
+default:
+  timeout: 3600
+  chef:
+    attribute_keys:
+      - cloudconductor
+
+events:
+  setup:
+    description: Execute setup
+    task: setup
+
+  configure:
+    description: Execute configure
+    priority: 50
+    ordered_tasks:
+      - service: postgresql-9.4
+        task: configure
+      - service: tomcat7
+        task: configure
+      - service: httpd
+        task: configure
+
+  spec:
+    description: Execute spec
+    task: spec
+
+  deploy:
+    description: Execute deploy
+    task: deploy
+
+  backup:
+    description: Execute backup
+    task: backup
+
+  restore:
+    description: Execute restore
+    task: restore
+
+tasks:
+  setup:
+    description: Execute setup
+    operations:
+      - execute:
+          file: prepare.sh
+      - execute:
+          script: echo -e "[{{role}}_server]\nlocalhost ansible_connection=local" > hosts
+      - execute:
+          script: ansible-playbook -i hosts playbooks/site.yml --tags "setup"
+
+  configure:
+    description: Execute configure
+    operations:
+      - execute:
+          script: python lib/cloud_conductor_attributes.py > cc_attributes.json
+      - execute:
+          script: ansible-playbook -i hosts playbooks/site.yml --tags "configure" --extra-vars "@cc_attributes.json"
+
+  spec:
+    description: Execute serverspec
+    operations:
+      - execute:
+          script: python lib/serverspec.py {{role}}
+
+  deploy:
+    description: Execute deploy
+    operations:
+      - execute:
+          script: python lib/cloud_conductor_attributes.py > cc_attributes.json
+      - execute:
+          script: ansible-playbook -i hosts playbooks/site.yml --tags "deploy" --extra-vars "@cc_attributes.json"
+
+  backup:
+    description: Backup dummy task
+    operations:
+      - execute:
+          script: echo Hello World!
+
+  restore:
+    description: Restore dummy task
+    operations:
+      - execute:
+          script: echo Hello World!
