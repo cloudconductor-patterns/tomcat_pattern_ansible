@@ -7,8 +7,14 @@ version:          "0.0.0"
 url:              "https://github.com/cloudconductor-patterns/tomcat_pattern_ansible"
 
 type:      "platform"
-depends:   []
+dependencies: ["common_network"]
 conflicts: []
+
+providers:
+  aws:
+    - cloud_formation
+  openstack:
+    - cloud_formation
 
 supports:
   - platform: "centos"
