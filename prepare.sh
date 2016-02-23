@@ -39,7 +39,7 @@ install_ruby() {
     if [ $status -ne 0 ]; then
       install_git
     fi
-    yum install -y openssl-devel readline-devel zlib-devel tar
+    yum install -y openssl-devel readline-devel zlib-devel tar bzip2
     git clone https://github.com/sstephenson/rbenv.git /usr/local/rbenv
     git clone https://github.com/sstephenson/ruby-build.git /usr/local/rbenv/plugins/ruby-build
     echo 'export RBENV_ROOT="/usr/local/rbenv"' > /etc/profile.d/rbenv.sh
