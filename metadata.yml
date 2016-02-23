@@ -18,8 +18,10 @@ roles:
 providers:
   aws:
     - cloud_formation
+    - terraform
   openstack:
     - cloud_formation
+    - terraform
 
 supports:
   - platform: "centos"
