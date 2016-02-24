@@ -9,7 +9,7 @@ describe 'application http status' do
 
     sleep 3
 
-    describe "#{app_name}" do
+    describe app_name.to_s do
       describe command("curl -s --noproxy localhost 'http://localhost:8080/#{app_name}' -w \"%{http_code}\" -o /dev/null") do
         its(:stdout) { should_not match '000' }
         its(:stdout) { should_not start_with '4' }

@@ -11,29 +11,29 @@ describe 'postgresql server' do
 
   params = property[:consul_parameters]
 
-  if params[:tomcat_pattern_ansible] &&
-     params[:tomcat_pattern_ansible][:database] &&
-     params[:tomcat_pattern_ansible][:database][:db_name]
+  app_db = if params[:tomcat_pattern_ansible] &&
+              params[:tomcat_pattern_ansible][:database] &&
+              params[:tomcat_pattern_ansible][:database][:db_name]
 
-    app_db = params[:tomcat_pattern_ansible][:database][:db_name]
-  else
-    app_db = 'application'
-  end
+             params[:tomcat_pattern_ansible][:database][:db_name]
+           else
+             'application'
+           end
 
-  if params[:tomcat_pattern_ansible] &&
-     params[:tomcat_pattern_ansible][:database] &&
-     params[:tomcat_pattern_ansible][:database][:db_user]
+  app_user = if params[:tomcat_pattern_ansible] &&
+                params[:tomcat_pattern_ansible][:database] &&
+                params[:tomcat_pattern_ansible][:database][:db_user]
 
-    app_user = params[:tomcat_pattern_ansible][:database][:db_user]
-  else
-    app_user = 'user'
-  end
+               params[:tomcat_pattern_ansible][:database][:db_user]
+             else
+               'user'
+             end
 
-  if params[:cloudconductor][:salt]
-    app_passwd = UnixCrypt::SHA256.build(params[:cloudconductor][:salt], 'password')
-  else
-    app_passwd = UnixCrypt::SHA256.build('password', 'password')
-  end
+  app_passwd = if params[:cloudconductor][:salt]
+                 UnixCrypt::SHA256.build(params[:cloudconductor][:salt], 'password')
+               else
+                 UnixCrypt::SHA256.build('password', 'password')
+               end
 
   before(:all) do
     Specinfra.backend.run_command(

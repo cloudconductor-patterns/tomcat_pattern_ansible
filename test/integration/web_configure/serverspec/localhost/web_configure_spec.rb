@@ -11,7 +11,7 @@ describe 'web_configure' do
     end
   end
 
-  it 'is workers.properties file set mode and exist'do
+  it 'is workers.properties file set mode and exist' do
     expect(file('/etc/httpd/conf.d/workers.properties'))
       .to be_file
       .and be_mode(644)
