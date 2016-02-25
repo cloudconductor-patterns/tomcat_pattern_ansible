@@ -1,6 +1,6 @@
 environments:
   HOME: /root
-  PATH: $PATH:/usr/bin:/usr/local/rbenv/shims
+  PATH: $PATH:/usr/local/bin:/usr/bin
   ROLE: '{{config.role}}'
   CONSUL_SECRET_KEY: '{{config.token}}'
 
