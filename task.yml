@@ -68,7 +68,15 @@ tasks:
     description: Execute serverspec
     operations:
       - execute:
-          script: python lib/serverspec.py {{role}}
+          script: |
+            if [ -f /etc/profile.d/rbenv.sh ]; then
+              source /etc/profile.d/rbenv.sh
+            else
+              if [ -f /etc/profile.d/chef.sh ]; then
+                source /etc/profile.d/chef.sh
+              fi
+            fi
+            python lib/serverspec.py {{role}}
 
   deploy:
     description: Execute deploy

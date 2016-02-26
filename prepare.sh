@@ -13,6 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+if [ "${CHEF_ENV_FILE}" == "" ]; then
+  CHEF_ENV_FILE="/etc/profile.d/chef.sh"
+fi
+
 run() {
   output="$("$@" 2>&1)"
   status="$?"
@@ -73,12 +77,19 @@ set_ruby_path() {
       ruby_home=/opt/chef/embedded
     fi
 
-    echo "export PATH=\$PATH:${ruby_home}/bin" > ${CHEF_ENV_FILE}
-    export PATH=${ruby_home}/bin:${PATH}
+    if [ -n "${ruby_home}" ]; then
+      echo "export PATH=\$PATH:${ruby_home}/bin" > ${CHEF_ENV_FILE}
+      export PATH=${ruby_home}/bin:${PATH}
+    fi
   fi
 }
 
 install_serverspec() {
+  run which ruby
+  if [ $status -ne 0 ]; then
+    set_ruby_path
+  fi
+
   run which ruby
   if [ $status -ne 0 ]; then
     install_ruby
