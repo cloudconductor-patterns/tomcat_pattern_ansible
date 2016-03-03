@@ -13,8 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+script_root=$(cd $(dirname $0) && pwd)
+
 RUBY_VERSION=2.3.0
 RUBY_URL="https://cache.ruby-lang.org/pub/ruby/${RUBY_VERSION%\.*}/ruby-${RUBY_VERSION}.tar.gz"
+
+if [ "${CHEF_ENV_FILE}" == "" ]; then
+  CHEF_ENV_FILE="/etc/profile.d/chef.sh"
+fi
 
 run() {
   output="$("$@" 2>&1)"
@@ -60,6 +66,11 @@ set_ruby_path() {
 }
 
 install_serverspec() {
+  run which ruby
+  if [ $status -ne 0 ]; then
+    set_ruby_path
+  fi
+
   run which ruby
   if [ $status -ne 0 ]; then
     install_ruby
@@ -112,4 +123,4 @@ install_ruby
 install_ansible
 install_serverspec
 
-setup_python_env ./lib/python-packages.txt
+setup_python_env ${script_root}/lib/python-packages.txt
