@@ -2,7 +2,7 @@
 
 This is the platform pattern designed to build the system hosts Apache Tomcat based application.
 
-* CentOS (~>7.0)
+* CentOS (>=6.5,<7.2)
 * Java (~> 1.7)
 * Apache Tomcat (~> 7)
 * PostgreSQL (~> 9.4)
@@ -13,7 +13,7 @@ For more information, please visit [official web site](http://cloudconductor.org
 
 ## Prerequisites
 
-- cloudconductor (>= 1.1)
+- cloudconductor (>= 2.0)
 
 # How to use patterns
 
@@ -29,7 +29,7 @@ Please see the vars files if you want to know what kind of attributes are in thi
 
 # Copyright and License
 
-Copyright 2015 TIS inc.
+Copyright 2016 TIS inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -48,6 +48,6 @@ limitations under the License.
 
 For more information: <http://cloudconductor.org/>
 
-Report issues and requests: <https://github.com/cloudconductor-patterns/tomcat_pattern/issues>
+Report issues and requests: <https://github.com/cloudconductor-patterns/tomcat_pattern_ansible/issues>
 
 Send feedback to: <ccndctr@gmail.com>
