@@ -2,7 +2,7 @@
 
 This is the platform pattern designed to build the system hosts Apache Tomcat based application.
 
-* CentOS (~>7.0)
+* CentOS (>=6.5,<7.2)
 * Java (~> 1.7)
 * Apache Tomcat (~> 7)
 * PostgreSQL (~> 9.4)
