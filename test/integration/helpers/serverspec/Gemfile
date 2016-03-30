@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+gem 'rake'
+gem 'serverspec'
+gem 'net-ssh', '~>2.0'
+gem 'unix-crypt'

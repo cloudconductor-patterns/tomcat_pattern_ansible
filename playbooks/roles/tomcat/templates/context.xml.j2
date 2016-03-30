@@ -1,0 +1,5 @@
+<Context>
+  <Resource name="jdbc/postgresql" auth="Container" type="javax.sql.DataSource"
+    driverClassName="org.postgresql.Driver" url="jdbc:postgresql://{{ db_server_ip }}:5432/{{ db_name }}"
+    username="{{ db_user }}" password="{{ db_pass }}" maxActive="100" maxIdle="30" maxWait="-1" />
+</Context>

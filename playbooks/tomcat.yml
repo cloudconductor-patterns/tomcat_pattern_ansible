@@ -1,0 +1,5 @@
+---
+- hosts: ap_server
+  sudo: yes
+  roles:
+    - tomcat

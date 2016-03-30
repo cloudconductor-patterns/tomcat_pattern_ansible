@@ -1,0 +1,30 @@
+name:             "tomcat_pattern_ansible"
+maintainer:       "TIS Inc."
+maintainer_email: "ccndctr@gmail.com"
+license:          "Apache v2.0"
+description:      "CloudConductor platform pattern for Java application"
+version:          "1.0.0"
+url:              "https://github.com/cloudconductor-patterns/tomcat_pattern_ansible"
+
+type:      "platform"
+dependencies: ["common_network"]
+conflicts: []
+
+roles:
+  - web
+  - ap
+  - db
+
+providers:
+  aws:
+    - cloud_formation
+    - terraform
+  openstack:
+    - cloud_formation
+    - terraform
+
+supports:
+  - platform: "centos"
+    platform_version: "6.7"
+  - platform: "centos"
+    platform_version: "7.2"
